@@ -17,7 +17,10 @@ public class PlayerAnimation : MonoBehaviour
     {
         _anim.SetFloat("Move", Mathf.Abs(move));
     }
-
+    public void DoubleJump()
+    {
+        _anim.SetTrigger("DoubleJump");
+    }
     public void Jumping(bool isJumping)
     {
         _anim.SetBool("Jumping", isJumping);

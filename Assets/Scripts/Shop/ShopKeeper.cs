@@ -77,6 +77,7 @@ public class ShopKeeper : MonoBehaviour
                     break;
                 case 1://bootsofflight
                     Debug.Log("Boots of Flight Awarded");
+                    _player.DoubleJumpActive();
                     break;
                 case 2://KeyToTheCastle
                     GameManager.Instance.HasKeyToCastle = true;

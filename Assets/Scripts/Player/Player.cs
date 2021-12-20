@@ -9,7 +9,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private Rigidbody2D _rigidBody;
     [SerializeField]
-    private float _jumpHeight = 5;
+    private float _jumpHeight = 6;
     private bool _resetJump;
     [SerializeField]
     private float _speed = 3.0f;
@@ -17,7 +17,10 @@ public class Player : MonoBehaviour, IDamageable
     private PlayerAnimation _playerAnim;
     private SpriteRenderer _playerSprite;
     private SpriteRenderer _swordArcSprite;
-
+    [SerializeField]
+    private bool _doubleJumpActive = false;
+    [SerializeField]
+    private bool _canDoubleJump = false;
     public int Health { get; set; }
 
 
@@ -45,9 +48,10 @@ public class Player : MonoBehaviour, IDamageable
     }
     void Movement()
     {
-        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");  //Input.GetAxisRaw("Horizontal");
+        //float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        
         _grounded = IsGrounded();
-
 
         if (horizontalInput > 0)
         {
@@ -58,12 +62,20 @@ public class Player : MonoBehaviour, IDamageable
             Flip(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("B_Button") && IsGrounded())
+        if (CrossPlatformInputManager.GetButtonDown("B_Button") && IsGrounded())
         {
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpHeight);
             StartCoroutine(ResetJumpRoutine());
             _playerAnim.Jumping(true);
         }
+        if (CrossPlatformInputManager.GetButtonDown("B_Button") && _canDoubleJump == true)
+        {
+            _canDoubleJump = false;
+            _playerAnim.DoubleJump();
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpHeight);
+            //StartCoroutine(ResetJumpRoutine());
+        }
+
 
         _rigidBody.velocity = new Vector2(horizontalInput * _speed, _rigidBody.velocity.y);
 
@@ -74,8 +86,14 @@ public class Player : MonoBehaviour, IDamageable
     {
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, 1 << 8);
         Debug.DrawRay(transform.position, Vector2.down, Color.green);
+
         if (hitInfo.collider != null)
         {
+            if (_doubleJumpActive == true)
+            {
+                _canDoubleJump = true;
+            }
+
             if (_resetJump == false)
             {
                 _playerAnim.Jumping(false);
@@ -84,6 +102,8 @@ public class Player : MonoBehaviour, IDamageable
         }
 
         return false;
+    
+        
     }
 
     void Flip(bool faceRight)
@@ -136,5 +156,14 @@ public class Player : MonoBehaviour, IDamageable
     {
         diamonds += amount;
         UIManager.Instance.UpdateGemCount(diamonds);
+    }
+
+    public void DoubleJumpActive()
+    {
+        _doubleJumpActive = true;
+        if (_doubleJumpActive == true)
+        {
+            _canDoubleJump = true;
+        }
     }
 }
