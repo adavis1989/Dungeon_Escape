@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
     public void ItemBought(int update)
     {
         playerGemCountText.text = "" + player.diamonds + "G";
+        gemCountText.text = "" + player.diamonds + "G";
     }
 
     public void UpdateGemCount(int count)

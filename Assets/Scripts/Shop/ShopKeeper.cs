@@ -74,7 +74,7 @@ public class ShopKeeper : MonoBehaviour
             {
                 case 0://flamesword
                     Debug.Log("Flame Sword Awarded");
-
+                    _player.FlameAttackActive();
                     break;
                 case 1://bootsofflight
                     Debug.Log("Boots of Flight Awarded");
