@@ -20,14 +20,14 @@ public class Spider : Enemy, IDamageable
         
     }
 
-    public void Damage()
+    public void Damage(int damage)
     {
         if (isDead == true)
         {
             return;
         }
 
-        Health--;
+        Health = Health - damage;
         if (Health < 1)
         {
             isDead = true;

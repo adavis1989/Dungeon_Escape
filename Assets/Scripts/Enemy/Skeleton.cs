@@ -18,7 +18,7 @@ public class Skeleton : Enemy, IDamageable
         base.Movement();
     }
 
-    public void Damage()
+    public void Damage(int damage)
     {
         if (isDead == true)
         {
@@ -26,7 +26,7 @@ public class Skeleton : Enemy, IDamageable
         }
 
         Debug.Log("Skeleton::Damage()");
-        Health--;
+        Health = Health - damage;
         anim.SetTrigger("Hit");
         isHit = true;
         anim.SetBool("InCombat", true);

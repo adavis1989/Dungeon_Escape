@@ -21,6 +21,8 @@ public class Player : MonoBehaviour, IDamageable
     private bool _doubleJumpActive = false;
     [SerializeField]
     private bool _canDoubleJump = false;
+    public bool flameAttack = false;
+
     public int Health { get; set; }
 
 
@@ -43,7 +45,12 @@ public class Player : MonoBehaviour, IDamageable
 
         if (CrossPlatformInputManager.GetButtonDown("A_Button") && IsGrounded())
         {
-            _playerAnim.Attack();
+            if (flameAttack == true)
+            {
+                _playerAnim.FlameAttack();
+            }
+
+                _playerAnim.Attack();
         }
     }
     void Movement()
@@ -137,7 +144,7 @@ public class Player : MonoBehaviour, IDamageable
         _resetJump = false;
     }
 
-    public void Damage()
+    public void Damage(int damage)
     {
         if (Health < 1)
         {
@@ -165,5 +172,9 @@ public class Player : MonoBehaviour, IDamageable
         {
             _canDoubleJump = true;
         }
+    }
+    public void FlameAttackActive()
+    {
+        flameAttack = true;
     }
 }

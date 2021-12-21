@@ -5,6 +5,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private bool _canAttack = true;
+    public int _attackpoints;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,7 +17,7 @@ public class Attack : MonoBehaviour
         {
             if (_canAttack == true)
             {
-                hit.Damage();
+                hit.Damage(_attackpoints);
                 _canAttack = false;
                 StartCoroutine(AttackReset());
             }
