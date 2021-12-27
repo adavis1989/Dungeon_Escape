@@ -34,7 +34,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void FlameAttack()
     {
-        _anim.SetTrigger("FireAttack");
+        _anim.SetBool("FireAttack", true);
     }
     public void Death()
     {

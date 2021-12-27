@@ -18,11 +18,15 @@ public class Player : MonoBehaviour, IDamageable
     private SpriteRenderer _playerSprite;
     private SpriteRenderer _swordArcSprite;
     [SerializeField]
+    private Vector2 _spawnPos;
+    
+    [SerializeField]
     private bool _doubleJumpActive = false;
     [SerializeField]
     private bool _canDoubleJump = false;
-    public bool flameAttack = false;
 
+    public bool flameAttack = false;
+    
     public int Health { get; set; }
 
 
@@ -37,11 +41,13 @@ public class Player : MonoBehaviour, IDamageable
 
     void Update()
     {
+        
+        Movement();
+
         if (Health < 1)
         {
             return;
         }
-        Movement();
 
         if (CrossPlatformInputManager.GetButtonDown("A_Button") && IsGrounded())
         {
@@ -55,9 +61,14 @@ public class Player : MonoBehaviour, IDamageable
     }
     void Movement()
     {
-        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
-        //float horizontalInput = Input.GetAxisRaw("Horizontal");
-        
+        //float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (Health < 1)
+        {
+            horizontalInput = 0;
+        }
+
         _grounded = IsGrounded();
 
         if (horizontalInput > 0)
@@ -80,7 +91,6 @@ public class Player : MonoBehaviour, IDamageable
             _canDoubleJump = false;
             _playerAnim.DoubleJump();
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpHeight);
-            //StartCoroutine(ResetJumpRoutine());
         }
 
 
@@ -151,7 +161,7 @@ public class Player : MonoBehaviour, IDamageable
             return;
         }
         Debug.Log("Player::Damage()");
-        Health --;
+        Health = Health - damage;
         UIManager.Instance.UpdateLives(Health);
         if (Health < 1)
         {
@@ -176,5 +186,11 @@ public class Player : MonoBehaviour, IDamageable
     public void FlameAttackActive()
     {
         flameAttack = true;
+    }
+
+    public void Respawn()
+    {
+        transform.position = _spawnPos;
+        Damage(1);
     }
 }
