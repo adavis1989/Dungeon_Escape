@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -41,11 +42,14 @@ public class Player : MonoBehaviour, IDamageable
 
     void Update()
     {
-        
         Movement();
 
         if (Health < 1)
         {
+            if (CrossPlatformInputManager.GetButtonDown("A_Button"))
+            {
+                SceneManager.LoadScene("Game");
+            }
             return;
         }
 
@@ -61,8 +65,8 @@ public class Player : MonoBehaviour, IDamageable
     }
     void Movement()
     {
-        //float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        //float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (Health < 1)
         {

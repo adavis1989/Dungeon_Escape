@@ -28,7 +28,7 @@ public class Attack : MonoBehaviour
 
     IEnumerator AttackReset()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         _canAttack = true;
     }
 }

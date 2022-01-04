@@ -25,8 +25,8 @@ public class Skeleton : Enemy, IDamageable
             return;
         }
 
-        Debug.Log("Skeleton::Damage()");
-        Health = Health - damage;
+        //Debug.Log("Skeleton::Damage()");
+        Health -= damage;
         anim.SetTrigger("Hit");
         isHit = true;
         anim.SetBool("InCombat", true);

@@ -54,10 +54,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
         Debug.Log($"Error loading Ad Unit {adID}: {error.ToString()} - {message}");
     }
 
-    public void OnUnityAdsShowClick(string placementId)
-    {
-    }
-
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
         //award for completion
@@ -98,42 +94,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
     {
     }
 
-    //public void ShowRewardedAd()
-    //{
-    //    Debug.Log("Showing Rewarded Ad");
+    public void OnUnityAdsShowClick(string placementId)
+    {
+    }
 
-    //    if (Advertisement.IsReady("Rewarded_Android"))
-    //    {
-    //        Debug.Log("Called");
-
-    //        var options = new ShowOptions
-    //        {
-    //            resultCallback = HandleShowResult
-    //        };
-
-    //        Advertisement.Show("Rewarded_Android", options);
-    //    }
-    //    return;
-    //}
-
-    //void HandleShowResult(ShowResult result)
-    //{
-    //    Debug.Log("called");
-
-    //    switch (result)
-    //    {
-    //        case ShowResult.Finished:
-    //            //Award 100 gems to player
-    //            Debug.Log("Video Finished!");
-    //            break;
-    //        case ShowResult.Skipped:
-    //            Debug.Log("You skipped the ad! No Gems for you!");
-    //            break;
-    //        case ShowResult.Failed:
-    //            Debug.Log("The Video failed, it must not have been ready");
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
 }

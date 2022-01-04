@@ -55,6 +55,8 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i <= livesRemaining; i++)
         {
+            Debug.Log(i);
+
             //do nothing untill we hit the max
             if (i == livesRemaining)
             {
