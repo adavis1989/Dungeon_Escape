@@ -65,8 +65,8 @@ public class Player : MonoBehaviour, IDamageable
     }
     void Movement()
     {
-        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
-        //float horizontalInput = Input.GetAxisRaw("Horizontal");
+        //float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (Health < 1)
         {
